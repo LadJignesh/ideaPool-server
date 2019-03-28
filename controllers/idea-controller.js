@@ -1,12 +1,22 @@
 const Idea = require('../models/idea');
+var MongoClient = require('mongodb').MongoClient;
+const keys = require('../config/keys')
 
 exports.fndAllIdeas = function(req, res) {
-    res.send("Listing All Idea...");
+    MongoClient.connect(keys.mongodb.dbURI,{useNewUrlParser:true}, function(err, db) {
+        if (err) throw err;
+        var dbo = db.db("jl-oauth-test");
+        dbo.collection("ideaPool").find({}).toArray(function(err, result) {
+          if (err) res.status(400).json("Error Connecting DB");
+          res.json(result);
+          db.close();
+        });
+    }); 
 }
 
 exports.createIdea = function(req, res) {
     const idea = new Idea({
-        title: req.body.title || "Untitled idea",
+        title: req.body.title,
         existing: req.body.existing,
         area: req.body.area,
         category: req.body.category,
@@ -17,14 +27,32 @@ exports.createIdea = function(req, res) {
         createdBy: req.body.createdBy,
         ratings: req.body.ratings,
         itemType: req.body.itemType,
-        path: req.body.path
+        path: req.body.path,
+        status: "pending"
     });
     console.log(idea);
-    res.send(idea);
+    MongoClient.connect(keys.mongodb.dbURI,{useNewUrlParser:true}, function(err, db) {
+        if (err) throw err;
+        var dbo = db.db("jl-oauth-test");
+        dbo.collection("ideaPool").insertOne(idea,function(err, result) {
+          if (err) res.status(400).json("Error Connecting DB");
+          res.status(200).json(result);
+          db.close();
+        });
+    });
 }
 
 exports.findIdeaByID = function(req,res){
-    res.send("Finding ID "+req.params.id)
+    console.log(req.params.id);
+    MongoClient.connect(keys.mongodb.dbURI,{useNewUrlParser:true}, function(err, db) {
+        if (err) throw err;
+        var dbo = db.db("jl-oauth-test");
+        dbo.collection("ideaPool").find({_id:req.params.id}).toArray(function(err, result) {
+          if (err) res.status(400).json("Error Connecting DB");
+          res.json(result);
+          db.close();
+        });
+    }); 
 }
 
 exports.updateIdeaByID = function(req,res){

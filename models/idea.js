@@ -13,7 +13,10 @@ const ideaSchema = new Schema({
     createdBy: String,
     ratings: String,
     itemType: String,
-    path: String
+    path: String,
+    status:String
+},{
+    timestamps:true
 });
 
 const Idea = mongoose.model('idea', ideaSchema, 'ideas');
