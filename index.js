@@ -14,6 +14,9 @@ app.use(function (request, response, next) {
     next();
 });
 
+// using frontend
+app.use(express.static(__dirname + '/frontend'));
+
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }))
 
