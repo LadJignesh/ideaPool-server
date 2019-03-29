@@ -14,10 +14,10 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json());
 
 //set up routes
-app.use('/ideaApp', ideaRoutes);
+app.use('/v1/ideaApp', ideaRoutes);
 
 //create home route
-app.get('/api/v1', (req, res) => {
+app.get('/', (req, res) => {
 	res.send("Idea Apis Running...");
 });
 
