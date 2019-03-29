@@ -61,13 +61,17 @@ exports.findIdeaByID = function (req, res) {
     try {
         MongoClient.connect(keys.mongodb.dbURI, { useNewUrlParser: true }, function (err, db) {
             if (err) throw err;
-            db.db("jl-oauth-test")
-                .collection("ideaPool")
-                .find({ _id: mongo.ObjectID(req.params.id) }).toArray(function (err, result) {
-                    if (err) res.status(400).json("Error Connecting DB");
-                    res.status(200).json(result);
-                    db.close();
-                });
+            try {
+                db.db("jl-oauth-test")
+                    .collection("ideaPool")
+                    .find({ _id: mongo.ObjectID(req.params.id) }).toArray(function (err, result) {
+                        if (err) res.status(400).json("Error Connecting DB");
+                        res.status(200).json(result);
+                        db.close();
+                    });
+            } catch{
+                res.status(500).send("Server error...please try again later");
+            }
         });
     } catch (err) {
         res.status(400).send("Error finding idea.. Please try again later");
@@ -80,20 +84,24 @@ exports.updateIdeaByID = function (req, res) {
     try {
         MongoClient.connect(keys.mongodb.dbURI, { useNewUrlParser: true }, function (err, db) {
             if (err) throw err;
-            db.db("jl-oauth-test")
-                .collection("ideaPool")
-                .updateOne({ _id: mongo.ObjectID(req.params.id) },
-                    { $set: req.body },
-                    function (err, result) {
-                        if (err) res.status(400).json("Error Updating Values in DB");
-                        res.status(200).json(result);
-                        db.close();
-                    });
+            try {
+                db.db("jl-oauth-test")
+                    .collection("ideaPool")
+                    .updateOne({ _id: mongo.ObjectID(req.params.id) },
+                        { $set: req.body },
+                        function (err, result) {
+                            if (err) res.status(400).json("Error Updating Values in DB");
+                            res.status(200).json(result);
+                            db.close();
+                        });
+            } catch (err) {
+                res.status(500).send("Error updating data..please try again later");
+            }
         });
     } catch (err) {
         res.status(400).send("Error updating idea.. Please try again later");
     } finally {
-        console.log("Ideas with idea " + req.params.id + " updated successfully");
+        console.log("Update operation : " + req.params.id);
     }
 }
 
@@ -101,14 +109,19 @@ exports.deleteIdeaByID = function (req, res) {
     try {
         MongoClient.connect(keys.mongodb.dbURI, { useNewUrlParser: true }, function (err, db) {
             if (err) throw err;
-            db.db("jl-oauth-test")
-                .collection("ideaPool")
-                .deleteOne({ _id: mongo.ObjectID(req.params.id) },
-                    function (err, result) {
-                        if (err) res.status(400).json("Error Connecting DB");
-                        res.status(200).json(result);
-                        db.close();
-                    });
+            try {
+                db.db("jl-oauth-test")
+                    .collection("ideaPool")
+                    .deleteOne({ _id: mongo.ObjectID(req.params.id) },
+                        function (err, result) {
+                            if (err) res.status(400).json("Error Connecting DB");
+                            res.status(200).json(result);
+                            db.close();
+                        });
+            } catch{
+                res.status(500).send("Error deleting idea");
+            }
+
         });
     } catch (err) {
         res.status(400).send("Error deleting idea.. Please try again later");
