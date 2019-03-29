@@ -1,37 +1,37 @@
-var ideaPoolApp = angular.module('ideaPoolApp',['ngRoute']);
+var ideaPoolApp = angular.module('ideaPoolApp', ['ngRoute']);
 //const apiUrl = 'http://localhost:3000/v1/ideaApp/';
 const apiUrl = 'https://sampledev121.herokuapp.com/v1/ideaApp/';
 
-ideaPoolApp.config(['$routeProvider',function($routeProvider){
+ideaPoolApp.config(['$routeProvider', function ($routeProvider) {
 
     $routeProvider
-    .when('/home',{
-        templateUrl:'views/home.html',
-        controller: 'HomeController'
-    })
-    .when('/admin',{
-        templateUrl:'/views/admin.html',
-        controller: 'AdminController'
-    })
-    .when('/error',{
-        templateUrl: 'views/error.html'
-    })
-    .otherwise({
-        redirectTo: '/error'
-    })
+        .when('/', {
+            templateUrl: 'views/home.html',
+            controller: 'HomeController'
+        })
+        .when('/admin', {
+            templateUrl: '/views/admin.html',
+            controller: 'AdminController'
+        })
+        .when('/error', {
+            templateUrl: 'views/error.html'
+        })
+        .otherwise({
+            redirectTo: '/error'
+        })
 }]);
 
-ideaPoolApp.directive('ideaForm',[function(){
+ideaPoolApp.directive('ideaForm', [function () {
 
-    return{
+    return {
         restrict: 'E',
         $scope: {
-            title:'='
+            title: '='
         },
         templateUrl: 'views/newIdeaForm.html',
-        transclude:true,
+        transclude: true,
         replace: true,
-        controller: function($scope){
+        controller: function ($scope) {
             //controller code here
             $scope.existing = ["yes", "no", "NA"];
             $scope.areas = ["Business Value", "JDE", "Clouds", "NA"];
@@ -40,65 +40,67 @@ ideaPoolApp.directive('ideaForm',[function(){
 
 }]);
 
-ideaPoolApp.directive('ideaDisplay',[function(){
+ideaPoolApp.directive('ideaDisplay', [function () {
 
-    return{
+    return {
         restrict: 'E',
         templateUrl: 'views/ideasDisplay.html',
-        transclude:true,
+        transclude: true,
         replace: true,
-        controller: function($scope){
+        controller: function ($scope) {
             //controller code here
         }
     };
 
 }]);
 
-ideaPoolApp.controller('AdminController',['$scope','$http',function($scope,$http){
-    $http.get(apiUrl).then(function(response){
+ideaPoolApp.controller('AdminController', ['$scope', '$http', function ($scope, $http) {
+    $http.get(apiUrl).then(function (response) {
         $scope.ideas = response.data;
     });
 
-    $scope.deleteIdea = function(id,title){
-        confirm("Are you sure you want to delete "+title);
-        $http.delete(apiUrl+id).
-        then(function(response) {
-            $scope.response = response.data;
-        }, function(response) {
-          $scope.response = response.data || 'Request failed';
-      });
+    $scope.deleteIdea = function (id, title) {
+        const del = confirm("Are you sure you want to delete " + title);
+        if (del) {
+            $http.delete(apiUrl + id).
+                then(function (response) {
+                    $scope.response = response.data;
+                }, function (response) {
+                    $scope.response = response.data || 'Request failed';
+                });
+        }
     }
 
-    $scope.passID = function(id){
+    $scope.passID = function (id) {
         $scope.uid = id;
     }
-    $scope.approveIdea = function(id,ratings){
-        
-        console.log($scope.uid+"/"+ratings);
-        const newupdatedData= {
+    $scope.approveIdea = function (id, ratings) {
+
+        console.log($scope.uid + "/" + ratings);
+        const newupdatedData = {
             ratings: ratings,
             status: "approved"
         };
-        $http.put(apiUrl+$scope.uid,JSON.stringify(newupdatedData)).
-        then(function(response) {
-            console.log(response);
-            $scope.response = response.data;
-        }, function(response) {
-          $scope.response = response.data || 'Request failed';
-      });
+        $http.put(apiUrl + $scope.uid, JSON.stringify(newupdatedData)).
+            then(function (response) {
+                console.log(response);
+                $scope.response = response.data;
+            }, function (response) {
+                $scope.response = response.data || 'Request failed';
+            });
     }
 }]);
 
-ideaPoolApp.controller('HomeController',['$scope', '$http', function($scope,$http){
+ideaPoolApp.controller('HomeController', ['$scope', '$http', function ($scope, $http) {
 
-    $http.get(apiUrl).then(function(response){
+    $http.get(apiUrl).then(function (response) {
         $scope.ideas = response.data;
     });
 }]);
 
-ideaPoolApp.controller('submitIdea',['$scope','$http',function($scope,$http){
-    $scope.addIdea = function(){
-        newIdea= {
+ideaPoolApp.controller('submitIdea', ['$scope', '$http', function ($scope, $http) {
+    $scope.addIdea = function () {
+        newIdea = {
             title: $scope.newidea.title,
             existing: $scope.newidea.existing,
             area: $scope.newidea.area,
@@ -111,13 +113,14 @@ ideaPoolApp.controller('submitIdea',['$scope','$http',function($scope,$http){
             itemType: $scope.newidea.itemType,
             path: $scope.newidea.path
         };
-       
-        $http.post(apiUrl,JSON.stringify(newIdea)).
-        then(function(response) {
-            $scope.response = response.data;
-        }, function(response) {
-          $scope.response = response.data || 'Request failed';
-      });
+
+        $http.post(apiUrl, JSON.stringify(newIdea)).
+            then(function (response) {
+                $scope.response = response.data;
+            }, function (response) {
+                alert("Request failed");
+                $scope.response = response.data || 'Request failed';
+            });
 
     };
 }]);
