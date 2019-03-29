@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const ideaSchema = new Schema({
-	title: String,
+    title: String,
     existing: String,
     area: String,
     category: String,
@@ -14,9 +14,7 @@ const ideaSchema = new Schema({
     ratings: String,
     itemType: String,
     path: String,
-    status:String
-},{
-    timestamps:true
+    status: String
 });
 
 const Idea = mongoose.model('idea', ideaSchema, 'ideas');
