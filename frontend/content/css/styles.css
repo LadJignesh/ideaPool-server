@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Acme|Questrial');
 body{
     font-family: Helvetica;
     margin: 0;
@@ -7,12 +8,17 @@ h1,h2,h3{
   margin: 0;
 }
 
-.navbar-brand{
-  margin-left:5%;
-}
-
 .title{
   font-weight: bold;
+}
+
+.navbar-brand{
+  font-family: 'Acme', sans-serif;
+}
+
+.btn-customGreen{
+  background-color: #295f48;
+  color: aliceblue;
 }
 
 #idea-card{
@@ -20,9 +26,11 @@ h1,h2,h3{
   font-weight: 500;
   background-color: #295f48;
   color: aliceblue;
+  font-family: 'Questrial', sans-serif;
 }
 
 #idea-card-margin{
+  height: 12.5em;
   margin-bottom: 3%;
   margin-top: 3%;
 }
@@ -51,3 +59,10 @@ a#detailLink{
   color: #295f48;
 }
   
+#ideaDisplayContainer{
+  margin-top: 2%;
+}
+
+#adminPage{
+  font-family: 'Questrial', sans-serif;
+}

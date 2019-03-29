@@ -1,14 +1,18 @@
-<div class="col-4" ng-repeat="idea in ideas | orderBy: order | filter: search">
-    <div class="card" id="idea-card-margin">
-        <div class="card-header text-center" id="idea-card">
-            {{idea.title}}<br>
-            ( <b>{{idea.createdBy}} </b>)
-        </div>
-        <div id="ideaCardDetails" class="justify-content-center">
-            <h6 class="card-subtitle" ng-show="idea.area"><strong>Area: </strong>{{idea.area}}</h6>
-            <p class="card-text" ng-show="idea.status"><strong>Status: </strong>{{idea.status}}</p>
-            <h6 class="card-text"></h6>
-            <a href="" id="detailLink" data-toggle="modal" data-target="#ip{{idea._id}}">See Details</a>
+<div class="col-3" ng-repeat="idea in ideas | orderBy: order | filter: search">
+    <div style="-moz-box-shadow: 1px 1px 3px 2px #ebedeb;
+        -webkit-box-shadow: 1px 1px 3px 2px #ebedeb;
+        box-shadow:         1px 1px 3px 2px #ebedeb;">
+        <div class="card" id="idea-card-margin">
+            <div class="card-header text-center" id="idea-card">
+                {{idea.title}}<br>
+                ( <b>{{idea.createdBy}} </b>)
+            </div>
+            <div id="ideaCardDetails">
+                <h6 class="card-subtitle" ng-show="idea.area"><strong>Area: </strong>{{idea.area}}</h6>
+                <p class="card-text" ng-show="idea.status"><strong>Status: </strong>{{idea.status}}</p>
+                <h6 class="card-text"></h6>
+                <a href="" id="detailLink" data-toggle="modal" data-target="#ip{{idea._id}}">See Details</a>
+            </div>
         </div>
     </div>
 
