@@ -1,3 +1,4 @@
+//Variables Initialization
 const router = require('express').Router();
 const idea = require('../controllers/idea-controller');
 
