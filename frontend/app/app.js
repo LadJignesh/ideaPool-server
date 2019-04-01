@@ -1,5 +1,5 @@
 var ideaPoolApp = angular.module('ideaPoolApp', ['ngRoute']);
-//const apiUrl = 'http://localhost:3000/v1/ideaApp/';
+//const apiUrl = 'http://localhost:3000/v1/ideaApp/'; -> for dev
 const apiUrl = 'https://sampledev121.herokuapp.com/v1/ideaApp/';
 
 ideaPoolApp.config(['$routeProvider', function ($routeProvider) {
@@ -64,9 +64,14 @@ ideaPoolApp.controller('AdminController', ['$scope', '$http', function ($scope, 
         if (del) {
             $http.delete(apiUrl + id).
                 then(function (response) {
-                    $scope.response = response.data;
+                    // ToDo : Give proper response and redirect
+                    alert('Idea has been deleted!');
+                    location.reload(true);
+                    console.log(response.data);
                 }, function (response) {
-                    $scope.response = response.data || 'Request failed';
+                    // ToDo : Show proper error message and handle it
+                    alert('Some server error while deleting!');
+                    console.log(response.data);
                 });
         }
     }
@@ -76,17 +81,23 @@ ideaPoolApp.controller('AdminController', ['$scope', '$http', function ($scope, 
     }
     $scope.approveIdea = function (id, ratings) {
 
-        console.log($scope.uid + "/" + ratings);
+        //console.log($scope.uid + "/" + ratings);
         const newupdatedData = {
             ratings: ratings,
             status: "approved"
         };
         $http.put(apiUrl + $scope.uid, JSON.stringify(newupdatedData)).
             then(function (response) {
-                console.log(response);
-                $scope.response = response.data;
+                // ToDo : Give proper response and redirect
+               $('#adminModal').modal('hide');
+               alert('Idea has been approved!');
+               location.reload(true);
+               console.log(response.data);
             }, function (response) {
-                $scope.response = response.data || 'Request failed';
+                // ToDo : Show proper error message and handle it
+                $('#adminModal').modal('hide');
+                alert('Server error while deleting!');
+                console.log(response.data);
             });
     }
 }]);
@@ -116,10 +127,17 @@ ideaPoolApp.controller('submitIdea', ['$scope', '$http', function ($scope, $http
 
         $http.post(apiUrl, JSON.stringify(newIdea)).
             then(function (response) {
-                $scope.response = response.data;
+                // ToDo : Give proper response and redirect
+                $('#myModal').modal('hide');
+                alert('Idea successfully sent for approval');
+                location.reload(true);
+                console.log(response.data);
             }, function (response) {
                 alert("Request failed");
-                $scope.response = response.data || 'Request failed';
+                // ToDo : Show proper error message and handle it
+                $('#myModal').modal('hide');
+                alert('Error while sending data please try again later!!');
+                console.log(response.data);
             });
 
     };
