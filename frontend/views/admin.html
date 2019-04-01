@@ -17,7 +17,7 @@
           <th>Delete</th>
         </tr>
       </thead>
-      <tr ng-repeat="idea in ideas | orderBy: order | filter: search">
+      <tr ng-repeat="idea in ideas | orderBy: '-status' | filter: search">
         <td>{{idea.title}}</td>
         <td>{{idea.existing}}</td>
         <td>{{idea.area}}</td>
