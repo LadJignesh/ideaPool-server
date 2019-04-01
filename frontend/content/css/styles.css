@@ -55,6 +55,7 @@ a#detailLink:hover{
   color:#18392b;
 }
 
+
 a#detailLink{
   color: #295f48;
 }
@@ -65,4 +66,20 @@ a#detailLink{
 
 #adminPage{
   font-family: 'Questrial', sans-serif;
+}
+
+.dot {
+  height: 15px;
+  width: 15px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+} 
+
+.dot-approved{
+  background-color: #295f48;
+}
+
+.dot-pending{
+  background-color: #ff3333;
 }

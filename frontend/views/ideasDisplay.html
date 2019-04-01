@@ -9,7 +9,11 @@
             </div>
             <div id="ideaCardDetails">
                 <h6 class="card-subtitle" ng-show="idea.area"><strong>Area: </strong>{{idea.area}}</h6>
-                <p class="card-text" ng-show="idea.status"><strong>Status: </strong>{{idea.status}}</p>
+                <p class="card-text" ng-show="idea.status">
+                    <strong>Status: </strong>
+                    <span class="dot dot-approved" ng-show="idea.status=='approved'"></span>
+                    <span class="dot dot-pending" ng-show="idea.status=='pending'"></span>
+                </p>
                 <h6 class="card-text"></h6>
                 <a href="" id="detailLink" data-toggle="modal" data-target="#ip{{idea._id}}">See Details</a>
             </div>
