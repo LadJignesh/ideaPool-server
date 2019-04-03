@@ -1,0 +1,57 @@
+<div class="container">
+    <h2>Title: {{idea[0].title}}</h2>
+    <button href="" class="btn btn-customGreen" id="applyBtn">Apply for work</button>
+    <table class="table">
+        <tr ng-show="idea[0].existing">
+            <td><span class="title">Existing:</span></td>
+            <td>{{idea[0].existing}}</td>
+        </tr>
+        <tr ng-show="idea[0].area">
+            <td><span class="title">Area(KM):</span></td>
+            <td>{{idea[0].area}}</td>
+        </tr>
+        <tr ng-show="idea[0].category">
+            <td><span class="title">Category:</span></td>
+            <td>{{idea[0].category}}</td>
+        </tr>
+        <tr ng-show="idea[0].ipType">
+            <td><span class="title">IP Type:</span></td>
+            <td>{{idea[0].ipType}}</td>
+        </tr>
+        <tr ng-show="idea[0].ipStatus">
+            <td><span class="title">IP Status:</span></td>
+            <td>{{idea[0].ipStatus}}</td>
+        </tr>
+        <tr ng-show="idea[0].keyValueAttributes">
+            <td><span class="title">Key Value Attributes:</span> </td>
+            <td>{{idea[0].keyValueAttributes}}</td>
+        </tr>
+        <tr ng-show="idea[0].createdBy">
+            <td><span class="title">Created By:</span></td>
+            <td>{{idea[0].createdBy}}</td>
+        </tr>
+        <tr ng-show="idea[0].ratings">
+            <td><span class="title">Ratings:</span></td>
+            <td>{{idea[0].ratings}}</td>
+        </tr>
+        <tr ng-show="idea[0].itemType">
+            <td><span class="title">Item Type:</span></td>
+            <td>{{idea[0].itemType}}</td>
+        </tr>
+        <tr ng-show="idea[0].path">
+            <td><span class="title">Path:</span></td>
+            <td>{{idea[0].path}}</td>
+        </tr>
+        <tr ng-show="idea[0].description">
+            <td><span class="title">Description:</span></td>
+            <td>{{idea[0].description}}</td>
+        </tr>
+        <tr ng-show="idea[0].status">
+            <td><span class="title">Status:</span></td>
+            <td>{{idea[0].status}}</td>
+        </tr>
+    </table>
+
+    <h3><strong>Note:</strong>Discussion forum goes here for large project</h3>
+    <p>The discussion forum can be integrated for Disqus website from: <a href="https://disqus.com/">Disqus</a></p>
+</div>

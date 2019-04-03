@@ -30,7 +30,7 @@ h1,h2,h3{
 }
 
 #idea-card-margin{
-  height: 12.5em;
+  height: 14em;
   margin-bottom: 3%;
   margin-top: 3%;
 }
@@ -70,9 +70,9 @@ a#detailLink{
 
 .dot {
   height: 15px;
-  width: 15px;
+  width: 35px;
   background-color: #bbb;
-  border-radius: 50%;
+  border-radius: 20px;
   display: inline-block;
 } 
 
@@ -82,4 +82,12 @@ a#detailLink{
 
 .dot-pending{
   background-color: #ff3333;
+}
+
+#applyBtn{
+  margin: 5px 5px;
+}
+
+#paginationDiv{
+  margin: 2em 0;
 }
